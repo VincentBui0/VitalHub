@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {Plus_Jakarta_Sans} from "next/font/google";
 import "./globals.css";
-
+import { ThemeProvider } from "next-themes";
 import {cn} from '@/lib/utils'
 
 const fontSans = Plus_Jakarta_Sans({
@@ -23,10 +23,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("min-h-screen bg-dark-300 font-sans antialiased",
-          fontSans.variable)}>
+    <body
+      className={cn(
+        "min-h-screen bg-dark-300 font-sans antialiased",
+        fontSans.variable
+      )}
+    >
+      <ThemeProvider attribute="class" defaultTheme="dark">
         {children}
-      </body>
-    </html>
+      </ThemeProvider>
+    </body>
+  </html>
   );
 }
