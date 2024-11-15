@@ -10,15 +10,13 @@ import { z } from "zod";
 import { Form, FormControl } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import {
-    Doctors,
-    GenderOptions,
-    IdentificationTypes,
-    PatientFormDefaultValues,
-  } from "@/constants";
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constants";
 import { registerPatient } from "@/lib/actions/patient.actions";
 import { PatientFormValidation } from "@/lib/validation";
-
-
 
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
@@ -26,18 +24,18 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 
 const RegisterForm = ({ user }: { user: User }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const form = useForm<z.infer<typeof PatientFormValidation>>({
-    resolver: zodResolver(PatientFormValidation),
-    defaultValues: {
-      ...PatientFormDefaultValues,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    },
-  });
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+  
+    const form = useForm<z.infer<typeof PatientFormValidation>>({
+      resolver: zodResolver(PatientFormValidation),
+      defaultValues: {
+        ...PatientFormDefaultValues,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+    });
 
   const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
     setIsLoading(true);
