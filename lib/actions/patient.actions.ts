@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { ID, Query } from "node-appwrite";
 import { InputFile } from "node-appwrite/file";
@@ -15,20 +15,19 @@ import {
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
-//Create Appwrite User
+// CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
-    try {
-      // Create new user -> https://appwrite.io/docs/references/1.5.x/server-nodejs/users#create
-      const newUser = await users.create(
-        ID.unique(),
-        user.email,
-        user.phone,
-        undefined,
-        user.name
-      );
-      console.log({newUser})
-  
-      return parseStringify(newUser);
+  try {
+    // Create new user -> https://appwrite.io/docs/references/1.5.x/server-nodejs/users#create
+    const newuser = await users.create(
+      ID.unique(),
+      user.email,
+      user.phone,
+      undefined,
+      user.name
+    );
+
+    return parseStringify(newuser);
   } catch (error: any) {
     // Check existing user
     if (error && error?.code === 409) {
@@ -94,5 +93,21 @@ export const registerPatient = async ({
     console.error("An error occurred while creating a new patient:", error);
   }
 };
-  
-  
+
+// GET PATIENT
+export const getPatient = async (userId: string) => {
+  try {
+    const patients = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      [Query.equal("userId", [userId])]
+    );
+
+    return parseStringify(patients.documents[0]);
+  } catch (error) {
+    console.error(
+      "An error occurred while retrieving the patient details:",
+      error
+    );
+  }
+};
