@@ -4,9 +4,13 @@ import { redirect } from "next/navigation";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { getPatient, getUser } from "@/lib/actions/patient.actions";
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
+const Register = async ({ params }: { params: { userId: string } }) => {
+  const userId = params.userId; // params should be available synchronously.
   const user = await getUser(userId);
   const patient = await getPatient(userId);
+// const Register = async ({ params: { userId } }: SearchParamProps) => {
+//   const user = await getUser(userId);
+//   const patient = await getPatient(userId);
 
   if (patient) redirect(`/patients/${userId}/new-appointment`);
 
