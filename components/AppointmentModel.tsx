@@ -17,7 +17,7 @@ import { AppointmentForm } from "./forms/AppointmentForm";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export const AppointmentModal = ({
+export const AppointmentModel = ({
   patientId,
   userId,
   appointment,
